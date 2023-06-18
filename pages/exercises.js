@@ -1,16 +1,35 @@
-import Head from 'next/head';
-import Link from 'next/link';
+import { useState } from 'react';
 
-const title = "Exercises";
+const Exercises = ({ addExercise }) => {
+  const [exerciseName, setExerciseName] = useState('');
 
-export default function Exercises() {
-    return (
-        <div>
-            <Head>
-                <title>{title}</title>
-            </Head>
-            <h1>{title}</h1>
-            <Link href='/'>Home</Link>
-        </div>
-    );
-}
+  const handleInputChange = (e) => {
+    setExerciseName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (exerciseName) {
+      addExercise(exerciseName);
+      setExerciseName('');
+    }
+  };
+
+  return (
+    <div>
+      <h2>Add Exercise</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="exerciseName">Exercise Name:</label>
+        <input
+          type="text"
+          id="exerciseName"
+          value={exerciseName}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  );
+};
+
+export default Exercises;
