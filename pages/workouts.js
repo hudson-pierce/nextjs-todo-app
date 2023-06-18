@@ -1,13 +1,15 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
-export default function A() {
+const title = "Workouts";
+
+export default function Workouts() {
     return (
         <div>
             <Head>
-                <title>Page 1</title>
+                <title>{title}</title>
             </Head>
-            <h1>Page 1</h1>
+            <h1>{title}</h1>
             <Link href='/'>Home</Link>
         </div>
     );
