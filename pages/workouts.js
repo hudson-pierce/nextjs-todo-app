@@ -1,152 +1,191 @@
-import Head from 'next/head';
-import Link from 'next/link';
 import { useState } from 'react';
-import styles from '../styles/Workouts.module.css';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
-const title = "Workouts";
-
-const exerciseOptions = [
-  'Push-ups',
-  'Sit-ups',
-  'Squats',
-  'Lunges',
-  'Plank',
-  'Jumping Jacks',
+// Dummy data (will be replaced with data from DB)
+const EXERCISES = [
+  'Bench Press',
+  'Deadlifts',
+  'Dumbbell Fly',
+  'Shoulder Press',
+  'Squats'
 ];
 
-export default function Workouts() {
-  const [exercise, setExercise] = useState('');
-  const [reps, setReps] = useState('');
-  const [sets, setSets] = useState('');
-  const [weight, setWeight] = useState('');
-  const [workout, setWorkout] = useState([]);
+// Dummy data (will be replaced with data from DB)
+const WORKOUTS = [
+  {
+    name: "Workout A",
+    exercises: [
+      {
+        name: "Squats",
+        reps: 10,
+        sets: 3,
+        weight: 240
+      },
+      {
+        name: "Deadlifts",
+        reps: 5,
+        sets: 3,
+        weight: 300
+      }
+    ]
+  },
+  {
+    name: "Workout B",
+    exercises: [
+      {
+        name: "Squats",
+        reps: 10,
+        sets: 3,
+        weight: 240
+      },
+      {
+        name: "Deadlifts",
+        reps: 5,
+        sets: 3,
+        weight: 300
+      }
+    ]
+  }
+];
 
-  const handleExerciseChange = (e) => {
-    setExercise(e.target.value);
+// width of the sidebar
+const drawerWidth = 250;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+export default function PersistentDrawerLeft() {
+  const theme = useTheme();
+  const [open, setOpen] = useState(true);
+  const [workouts, setWorkouts] = useState(WORKOUTS);
+  const [selectedWorkout, setSelectedWorkout] = useState(workouts[0]);
+
+  const handleWorkoutClick = (event) => {
+    setSelectedWorkout(workouts.find((workout) => workout.name === event.target.textContent));
   };
 
-  const handleRepsChange = (e) => {
-    setReps(e.target.value);
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  const handleSetsChange = (e) => {
-    setSets(e.target.value);
-  };
-
-  const handleWeightChange = (e) => {
-    setWeight(e.target.value);
-  };
-
-  const handleAddExercise = () => {
-    if (exercise) {
-      const newExercise = {
-        exercise,
-        reps,
-        sets,
-        weight,
-      };
-      setWorkout([...workout, newExercise]);
-      setExercise('');
-      setReps('');
-      setSets('');
-      setWeight('');
-    }
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // You can do something with the workout data, like sending it to an API
-    console.log(workout);
-    // Reset form fields
-    setWorkout([]);
-    setExercise('');
-    setReps('');
-    setSets('');
-    setWeight('');
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <h1>{title}</h1>
-      <Link href='/'>Home</Link>
-      <form className={styles.form} onSubmit={handleFormSubmit}>
-        <h2>Add a New Workout</h2>
-        <div className={styles.formGroup}>
-          <label htmlFor="exercise-select">Select an exercise:</label>
-          <select
-            id="exercise-select"
-            className={styles.select}
-            value={exercise}
-            onChange={handleExerciseChange}
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <option value="">-- Select an exercise --</option>
-            {exerciseOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="reps-input">Reps:</label>
-          <input
-            type="number"
-            id="reps-input"
-            className={styles.input}
-            value={reps}
-            onChange={handleRepsChange}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="sets-input">Sets:</label>
-          <input
-            type="number"
-            id="sets-input"
-            className={styles.input}
-            value={sets}
-            onChange={handleSetsChange}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="weight-input">Weight (lbs):</label>
-          <input
-            type="number"
-            id="weight-input"
-            className={styles.input}
-            value={weight}
-            onChange={handleWeightChange}
-          />
-        </div>
-
-        <div className={styles.buttonGroup}>
-          <button type="button" className={styles.addButton} onClick={handleAddExercise}>
-            Add Exercise
-          </button>
-        </div>
-
-        <div>
-          <h3>Selected Exercises:</h3>
-          {workout.length > 0 ? (
-            <ul>
-              {workout.map(({ exercise, reps, sets, weight }, index) => (
-                <li key={index}>
-                  <strong>{exercise}</strong> - Reps: {reps}, Sets: {sets}, Weight: {weight} lbs
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No exercises selected.</p>
-          )}
-        </div>
-
-        <button type="submit" className={styles.submitButton}>Submit</button>
-      </form>
-    </div>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            {selectedWorkout.name}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <List>
+          {workouts.map((workout) => (
+            <ListItem key={workout.name} disablePadding>
+              <ListItemButton onClick={handleWorkoutClick}>
+                <ListItemIcon>
+                  <FitnessCenterIcon/>
+                </ListItemIcon>
+                <ListItemText primary={workout.name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography paragraph>
+            {selectedWorkout.name}
+        </Typography>
+      </Main>
+    </Box>
   );
 }
