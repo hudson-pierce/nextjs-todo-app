@@ -1,11 +1,5 @@
-import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import { CustomCard } from '../common/CustomCard';
 
 export default function WorkoutCard(props) {
   const router = useRouter();
@@ -19,19 +13,6 @@ export default function WorkoutCard(props) {
   };
 
   return (
-    <Card sx={{ width: 240 }} onClick={handleCardClick}>
-      <CardContent>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography gutterBottom variant="h6" component="div">
-            {props.workout.name}
-          </Typography>
-          <CardActions sx={{ display: 'flex' }}>
-            <IconButton onClick={handleDeleteWorkout} aria-label="Remove">
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </CardActions>
-        </div>
-      </CardContent>
-    </Card>
+    <CustomCard title={props.workout.name} onDelete={handleDeleteWorkout} onClick={handleCardClick}></CustomCard>
   );
 }
