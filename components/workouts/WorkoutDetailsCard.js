@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function WorkoutDetailsCard(props) {
   const handleDeleteExercise = () => {
-    console.log('delete exercise');
+    props.deleteExercise(props.exercise);
   };
 
   return (
