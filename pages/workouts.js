@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Layout from '../components/layout/Layout';
 import Box from '@mui/material/Box';
 import WorkoutCard from '../components/workouts/WorkoutCard';
+import Header from '../components/common/Header';
 import { WORKOUTS } from '../data/workouts';
 
 export default function Workouts() {
@@ -16,9 +16,7 @@ export default function Workouts() {
 
   return (
     <Layout>
-      <Typography variant='h3' sx={{ mb: 5, textAlign: 'center' }}>
-        My Workouts
-      </Typography>
+      <Header title="My Workouts"></Header>
       <Grid container spacing={6}>
           {workouts.map((workout, index) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={2}>

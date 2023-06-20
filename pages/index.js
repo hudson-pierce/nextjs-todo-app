@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Layout from '../components/layout/Layout';
+import Header from '../components/common/Header';
 
 export default function Home() {
   return (
@@ -8,9 +9,8 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <Layout>
-          <h1>Workout Like a Boss</h1>
+        <Header title='Home'></Header>
       </Layout>
     </div>
-
   );
 }
