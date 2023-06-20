@@ -17,7 +17,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Button from '@mui/material/Button';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Fab from '@mui/material/Fab';
 import WorkoutDetails from '../components/workouts/WorkoutDetails';
+import NewWorkoutForm from '../components/workouts/NewWorkoutForm';
 
 // Dummy data (will be replaced with data from DB)
 const EXERCISES = [
@@ -146,6 +149,7 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = useState(true);
   const [workouts, setWorkouts] = useState(WORKOUTS);
   const [selectedWorkout, setSelectedWorkout] = useState(workouts[0]);
+  const [newWorkoutMode, setNewWorkoutMode] = useState(false);
 
   useEffect(() => {
     console.log(selectedWorkout);
@@ -158,12 +162,17 @@ export default function PersistentDrawerLeft() {
   const createNewWorkout = () => {
     const newWorkout = {
       name: 'New Workout',
-      id: 'new',
+      id: 1,
       exercises: []
     };
+    setNewWorkoutMode(true);
     setWorkouts([...workouts, newWorkout]);
     setSelectedWorkout(newWorkout);
-  }
+  };
+
+  const startWorkout = () => {
+    console.log('Start workout');
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -227,13 +236,22 @@ export default function PersistentDrawerLeft() {
             ))}
           </List>
         </div>
-        <div style={{   display: 'flex', justifyContent: 'center', marginBottom: '20px',}}>
+        <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
           <Button variant="contained" color="primary" onClick={createNewWorkout} sx={{ margin: 2, textTransform: 'none' }}>Create New Workout</Button>
         </div>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <WorkoutDetails workout={selectedWorkout}></WorkoutDetails>
+        { 
+          newWorkoutMode 
+          ? 
+            <NewWorkoutForm exercises={EXERCISES} addExercise={(exercise) => console.log(exercise)}/> 
+          :
+            <WorkoutDetails workout={selectedWorkout}/>
+        }
+        <Fab color="success" aria-label="add" style={{position: 'fixed', bottom: '40px', right: '40px'}} onClick={startWorkout}>
+          <PlayArrowIcon/>
+        </Fab>
       </Main>
     </Box>
   );

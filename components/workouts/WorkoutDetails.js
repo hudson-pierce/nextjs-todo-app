@@ -24,7 +24,6 @@ export default function WorkoutDetails(props) {
                     </Grid>           
                 ))}
             </Grid>
-            <Button>Start Workout</Button>
         </div>
     );
 }
