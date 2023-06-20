@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import Layout from '../components/layout/Layout';
-import Header from '../components/common/Header';
 
 const DashboardChart = () => {
   const chartRef = useRef(null);
@@ -58,8 +57,7 @@ const DashboardChart = () => {
   }, []);
 
   return (
-    <Layout>
-      <Header title="Dashboard"></Header>
+    <Layout title='Dashboard'>
       <canvas ref={chartRef} />
     </Layout>
   );

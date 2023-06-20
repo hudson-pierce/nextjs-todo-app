@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import Layout from '../components/layout/Layout';
 import Box from '@mui/material/Box';
 import WorkoutCard from '../components/workouts/WorkoutCard';
-import Header from '../components/common/Header';
 import { WORKOUTS } from '../data/workouts';
 
 export default function Workouts() {
@@ -15,8 +14,7 @@ export default function Workouts() {
   }
 
   return (
-    <Layout>
-      <Header title="My Workouts"></Header>
+    <Layout title='My Workouts'>
       <Grid container spacing={6}>
           {workouts.map((workout, index) => (
             <Grid item key={index} xs={12} sm={6} md={4} lg={2}>
@@ -26,7 +24,6 @@ export default function Workouts() {
             </Grid>           
           ))}
       </Grid>
-
     </Layout>
   );
 };

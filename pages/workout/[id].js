@@ -55,8 +55,7 @@ export default function WorkoutPage({ workout }) {
   }
 
   return (
-    <Layout>
-      <Header title={workout.name}></Header>
+    <Layout title={workout.name}>
       <Grid container spacing={6}>
         {exercises.map((exercise, index) => (
           <Grid item key={index} xs={12} sm={6} md={3} lg={2}>

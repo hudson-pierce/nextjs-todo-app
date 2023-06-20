@@ -3,13 +3,17 @@ import { useRouter } from 'next/router';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Header from '../common/Header';
+import Head from 'next/head';
 
-export default function Layout({ children }) {
+export default function Layout({ children, title }) {
   const router = useRouter();
 
   return (
     <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" onClick={() => router.push('/')} sx={{ textTransform: 'none' }}>
@@ -24,6 +28,7 @@ export default function Layout({ children }) {
         </Toolbar>
       </AppBar>
       <div style={{ padding: '40px' }}>
+        <Header title={title} />
         {children}
       </div>
     </div>
