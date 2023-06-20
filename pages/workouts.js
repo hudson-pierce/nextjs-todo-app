@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -16,6 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import WorkoutDetails from '../components/workouts/WorkoutDetails';
 
 // Dummy data (will be replaced with data from DB)
 const EXERCISES = [
@@ -42,23 +43,41 @@ const WORKOUTS = [
         reps: 5,
         sets: 3,
         weight: 300
-      }
+      },      
+      {
+        name: "Lunges",
+        reps: 10,
+        sets: 3,
+        weight: 100
+      },
+      {
+        name: "Crunches",
+        reps: 10,
+        sets: 3,
+        weight: 10
+      },
+      {
+        name: "Kettlebell Swings",
+        reps: 10,
+        sets: 3,
+        weight: 10
+      },
     ]
   },
   {
     name: "Workout B",
     exercises: [
       {
-        name: "Squats",
-        reps: 10,
-        sets: 3,
-        weight: 240
-      },
-      {
-        name: "Deadlifts",
+        name: "Bench Press",
         reps: 5,
         sets: 3,
-        weight: 300
+        weight: 120
+      },
+      {
+        name: "Shoulder Press",
+        reps: 5,
+        sets: 3,
+        weight: 50
       }
     ]
   }
@@ -122,6 +141,10 @@ export default function PersistentDrawerLeft() {
     setSelectedWorkout(workouts.find((workout) => workout.name === event.target.textContent));
   };
 
+  useEffect(() => {
+    console.log(selectedWorkout);
+  }, [selectedWorkout]);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -182,9 +205,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
-            {selectedWorkout.name}
-        </Typography>
+        <WorkoutDetails workout={selectedWorkout}></WorkoutDetails>
       </Main>
     </Box>
   );
