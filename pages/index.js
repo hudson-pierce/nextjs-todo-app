@@ -1,17 +1,17 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Layout from '../components/menu/Menu';
 
 export default function Home() {
   return (
     <div>
-        <Head>
-            <title>Workout Like a Boss</title>
-        </Head>
-        <h1>Workout Like a Boss</h1>
-        <ul>
-          <li><Link href='/dashboard'>Dashboard</Link></li>
-          <li><Link href='/workouts'>Workouts</Link></li>
-        </ul>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <Layout>
+          <h1>Workout Like a Boss</h1>
+      </Layout>
     </div>
+
   );
 }
