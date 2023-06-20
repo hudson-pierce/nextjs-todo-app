@@ -16,6 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import Button from '@mui/material/Button';
 import WorkoutDetails from '../components/workouts/WorkoutDetails';
 
 // Dummy data (will be replaced with data from DB)
@@ -146,13 +147,23 @@ export default function PersistentDrawerLeft() {
   const [workouts, setWorkouts] = useState(WORKOUTS);
   const [selectedWorkout, setSelectedWorkout] = useState(workouts[0]);
 
+  useEffect(() => {
+    console.log(selectedWorkout);
+  }, [selectedWorkout]);
+
   const handleWorkoutClick = (event) => {
     setSelectedWorkout(workouts.find((workout) => workout.name === event.target.textContent));
   };
 
-  useEffect(() => {
-    console.log(selectedWorkout);
-  }, [selectedWorkout]);
+  const createNewWorkout = () => {
+    const newWorkout = {
+      name: 'New Workout',
+      id: 'new',
+      exercises: []
+    };
+    setWorkouts([...workouts, newWorkout]);
+    setSelectedWorkout(newWorkout);
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -188,29 +199,37 @@ export default function PersistentDrawerLeft() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <List>
-          {workouts.map((workout) => (
-            <ListItem key={workout.name} disablePadding>
-              <ListItemButton onClick={handleWorkoutClick}>
-                <ListItemIcon>
-                  <FitnessCenterIcon/>
-                </ListItemIcon>
-                <ListItemText primary={workout.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <div>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <List>
+            {workouts.map((workout) => (
+              <ListItem key={workout.name} disablePadding>
+                <ListItemButton onClick={handleWorkoutClick}>
+                  <ListItemIcon>
+                    <FitnessCenterIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={workout.name} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+        <div style={{   display: 'flex', justifyContent: 'center', marginBottom: '20px',}}>
+          <Button variant="contained" color="primary" onClick={createNewWorkout} sx={{ margin: 2, textTransform: 'none' }}>Create New Workout</Button>
+        </div>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
