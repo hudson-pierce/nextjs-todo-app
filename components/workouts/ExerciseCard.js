@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function WorkoutDetailsCard(props) {
+export default function ExerciseCard(props) {
   const handleDeleteExercise = () => {
     props.deleteExercise(props.exercise);
   };

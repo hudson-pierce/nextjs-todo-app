@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -22,7 +23,9 @@ export default function Layout({ children }) {
           </Button>
         </Toolbar>
       </AppBar>
-      {children}
+      <div style={{ padding: '40px' }}>
+        {children}
+      </div>
     </div>
   );
 };
