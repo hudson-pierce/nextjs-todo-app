@@ -149,7 +149,6 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = useState(true);
   const [workouts, setWorkouts] = useState(WORKOUTS);
   const [selectedWorkout, setSelectedWorkout] = useState(workouts[0]);
-  const [newWorkoutMode, setNewWorkoutMode] = useState(false);
 
   useEffect(() => {
     console.log(selectedWorkout);
@@ -165,7 +164,6 @@ export default function PersistentDrawerLeft() {
       id: 1,
       exercises: []
     };
-    setNewWorkoutMode(true);
     setWorkouts([...workouts, newWorkout]);
     setSelectedWorkout(newWorkout);
   };
@@ -243,7 +241,7 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         { 
-          newWorkoutMode 
+          selectedWorkout.exercises.length === 0
           ? 
             <NewWorkoutForm exercises={EXERCISES} addExercise={(exercise) => console.log(exercise)}/> 
           :
