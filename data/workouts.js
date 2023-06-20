@@ -60,6 +60,86 @@ export const WORKOUTS = [
           weight: 50
         }
       ]
+    },
+    {
+      name: "Workout C",
+      id: 'c',
+      exercises: [
+        {
+          id: 'a',
+          name: "Bench Press",
+          reps: 5,
+          sets: 3,
+          weight: 120
+        },
+        {
+          id: 'b',
+          name: "Shoulder Press",
+          reps: 5,
+          sets: 3,
+          weight: 50
+        }
+      ]
+    },
+    {
+      name: "Workout D",
+      id: 'd',
+      exercises: [
+        {
+          id: 'a',
+          name: "Bench Press",
+          reps: 5,
+          sets: 3,
+          weight: 120
+        },
+        {
+          id: 'b',
+          name: "Shoulder Press",
+          reps: 5,
+          sets: 3,
+          weight: 50
+        }
+      ]
+    },
+    {
+      name: "Workout E",
+      id: 'e',
+      exercises: [
+        {
+          id: 'a',
+          name: "Bench Press",
+          reps: 5,
+          sets: 3,
+          weight: 120
+        },
+        {
+          id: 'b',
+          name: "Shoulder Press",
+          reps: 5,
+          sets: 3,
+          weight: 50
+        }
+      ]
+    },
+    {
+      name: "Workout F",
+      id: 'f',
+      exercises: [
+        {
+          id: 'a',
+          name: "Bench Press",
+          reps: 5,
+          sets: 3,
+          weight: 120
+        },
+        {
+          id: 'b',
+          name: "Shoulder Press",
+          reps: 5,
+          sets: 3,
+          weight: 50
+        }
+      ]
     }
   ];
   
