@@ -19,19 +19,19 @@ export default function WorkoutCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 300 }} onClick={handleCardClick}>
-        <CardContent>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography gutterBottom variant="h6" component="div">
-                    {props.workout.name}
-                </Typography>
-                <CardActions sx={{ display: 'flex' }}>
-                <IconButton onClick={handleDeleteWorkout} aria-label="Remove">
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-                </CardActions>
-            </div>
-        </CardContent>
+    <Card sx={{ width: 240 }} onClick={handleCardClick}>
+      <CardContent>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography gutterBottom variant="h6" component="div">
+            {props.workout.name}
+          </Typography>
+          <CardActions sx={{ display: 'flex' }}>
+            <IconButton onClick={handleDeleteWorkout} aria-label="Remove">
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </CardActions>
+        </div>
+      </CardContent>
     </Card>
   );
 }

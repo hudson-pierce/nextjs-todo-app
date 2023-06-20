@@ -11,8 +11,12 @@ export default function ExerciseCard(props) {
     props.deleteExercise(props.exercise);
   };
 
+  const handleCardClick = () => {
+    console.log("clicked")
+  };
+
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ width: 300 }} onClick={handleCardClick}>
         <CardContent>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography gutterBottom variant="h6" component="div">
