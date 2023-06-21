@@ -14,7 +14,7 @@ export default function Layout({ children, title }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <AppBar position="static">
+      <AppBar position='sticky'>
         <Toolbar>
           <Button color="inherit" onClick={() => router.push('/')} sx={{ textTransform: 'none' }}>
             Home
