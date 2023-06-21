@@ -34,7 +34,7 @@ export function CustomCard({ children, title, onDelete, onClick }) {
     >
       <CardContent onClick={onClick}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography variant="h6" component="div">
             {title}
           </Typography>        
           <IconButton onClick={handleDeleteClick} aria-label="Remove">
