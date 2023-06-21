@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Layout from '../../components/layout/Layout';
-import Header from '../../components/common/Header';
 import ExerciseCard from '../../components/workouts/ExerciseCard';
+import CustomGrid from '../../components/common/CustomGrid';
 import { WORKOUTS } from '../../data/workouts';
-import { Typography } from '@mui/material';
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -56,15 +53,12 @@ export default function WorkoutPage({ workout }) {
 
   return (
     <Layout title={workout.name}>
-      <Grid container spacing={6}>
-        {exercises.map((exercise, index) => (
-          <Grid item key={index} xs={12} sm={6} md={3} lg={2}>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <ExerciseCard exercise={exercise} deleteExercise={deleteExercise} />
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
+      <CustomGrid
+        items={exercises}
+        renderItem={(exercise) => (
+          <ExerciseCard exercise={exercise} deleteExercise={deleteExercise} />
+        )}
+      />
     </Layout>
   );
 }
