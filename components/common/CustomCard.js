@@ -6,14 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 export function CustomCard({ children, title, onDelete, onClick }) {
-  const [isIconButtonVisible, setIconButtonVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
-    setIconButtonVisible(true);
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    setIconButtonVisible(false);
+    setIsHovered(false);
   };
 
   const handleDeleteClick = (event) => {
@@ -22,17 +22,24 @@ export function CustomCard({ children, title, onDelete, onClick }) {
   };
 
   return (
-    <Card sx={{ width: 300 }}>
-      <CardContent onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <Card
+      sx={{
+        width: 300,
+        cursor: 'pointer',
+        transition: 'box-shadow 0.3s',
+        boxShadow: isHovered ? '0 0 8px rgba(0, 0, 0, 0.4)' : '0 0 4px rgba(0, 0, 0, 0.2)'
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <CardContent onClick={onClick}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography gutterBottom variant="h6" component="div">
             {title}
-          </Typography>
-          {isIconButtonVisible && (
-            <IconButton onClick={handleDeleteClick} aria-label="Remove">
-              <CloseIcon fontSize="medium" />
-            </IconButton>
-          )}
+          </Typography>        
+          <IconButton onClick={handleDeleteClick} aria-label="Remove">
+            <CloseIcon fontSize="medium" />
+          </IconButton>
         </div>
         {children}
       </CardContent>
