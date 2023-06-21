@@ -22,12 +22,22 @@ export async function getServerSideProps(context) {
 }
 
 export default function WorkoutPage({ workout }) {
-  const [exercises, setExercises] = useState(null); // Set initial state as null
+  const [exercises, setExercises] = useState(workout.exercises);
 
   const deleteExercise = (exercise) => {
     const newExercises = exercises.filter(e => e.name !== exercise.name);
     setExercises(newExercises);
-  }
+  };
+
+  const updateExercise = (updatedExercise) => {
+    const updatedExercises = exercises.map(e => {
+      if (e.name === updatedExercise.name) {
+        return updatedExercise;
+      }
+      return e;
+    });
+    setExercises(updatedExercises);
+  };
 
   useEffect(() => {
     if (workout) {
@@ -56,7 +66,12 @@ export default function WorkoutPage({ workout }) {
       <CustomGrid
         items={exercises}
         renderItem={(exercise) => (
-          <ExerciseCard exercise={exercise} deleteExercise={deleteExercise} />
+          <ExerciseCard
+            key={exercise.name}
+            exercise={exercise}
+            deleteExercise={deleteExercise}
+            updateExercise={updateExercise}
+          />
         )}
       />
     </Layout>

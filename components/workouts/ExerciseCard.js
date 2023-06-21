@@ -3,15 +3,16 @@ import { Typography, Modal, Box, Select, MenuItem, Button, TextField } from '@mu
 import { CustomCard } from '../common/CustomCard';
 import { EXERCISES } from '../../data/exercises';
 
-export default function ExerciseCard(props) {
+export default function ExerciseCard({ exercise, deleteExercise, updateExercise }) {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [exerciseName, setExerciseName] = useState(props.exercise.name);
-  const [exerciseReps, setExerciseReps] = useState(props.exercise.reps);
-  const [exerciseSets, setExerciseSets] = useState(props.exercise.sets);
-  const [exerciseWeight, setExerciseWeight] = useState(props.exercise.weight);
+  const [exerciseName, setExerciseName] = useState(exercise.name);
+  const [exerciseReps, setExerciseReps] = useState(exercise.reps);
+  const [exerciseSets, setExerciseSets] = useState(exercise.sets);
+  const [exerciseWeight, setExerciseWeight] = useState(exercise.weight);
+  const [refreshToggle, setRefreshToggle] = useState(false);
 
   const handleDeleteExercise = () => {
-    props.deleteExercise(props.exercise);
+    deleteExercise(exercise);
   };
 
   const handleEditClick = () => {
@@ -23,12 +24,21 @@ export default function ExerciseCard(props) {
   };
 
   const handleSaveChanges = () => {
+    const updatedExercise = {
+      ...exercise,
+      name: exerciseName,
+      reps: exerciseReps,
+      sets: exerciseSets,
+      weight: exerciseWeight,
+    };
+    updateExercise(updatedExercise);
     setModalOpen(false);
+    setRefreshToggle((prevToggle) => !prevToggle);
   };
 
   return (
     <>
-      <CustomCard title={exerciseName} onDelete={handleDeleteExercise} onClick={handleEditClick}>
+      <CustomCard key={refreshToggle} title={exerciseName} onDelete={handleDeleteExercise} onClick={handleEditClick}>
         <Typography variant="body1" color="text.secondary">
           Reps: {exerciseReps}
         </Typography>
