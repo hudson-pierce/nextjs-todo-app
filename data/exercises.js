@@ -4,5 +4,8 @@ export const EXERCISES = [
     'Deadlifts',
     'Dumbbell Fly',
     'Shoulder Press',
-    'Squats'
+    'Squats',
+    'Lunges',
+    'Crunches',
+    'Kettlebell Swings'
   ];
