@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import ExerciseCard from '../../components/workouts/ExerciseCard';
 import ExerciseForm from '../../components/workouts/ExerciseForm';
 import CustomGrid from '../../components/common/CustomGrid';
 import { WORKOUTS } from '../../data/workouts';
+import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { EXERCISES } from '../../data/exercises';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -25,12 +34,14 @@ export async function getServerSideProps(context) {
 }
 
 export default function WorkoutPage({ workout }) {
+  const router = useRouter();
   const [exercises, setExercises] = useState(workout.exercises);
   const [exerciseFormOpen, setExerciseFormOpen] = useState(false);
   const [exerciseName, setExerciseName] = useState(EXERCISES[0]);
   const [exerciseReps, setExerciseReps] = useState(0);
   const [exerciseSets, setExerciseSets] = useState(0);
   const [exerciseWeight, setExerciseWeight] = useState(0);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
   const deleteExercise = (exercise) => {
     const newExercises = exercises.filter(e => e.name !== exercise.name);
@@ -58,6 +69,22 @@ export default function WorkoutPage({ workout }) {
     });
     setExercises(updatedExercises);
   };
+
+  const saveWorkout = () => {
+    router.push('/workouts');
+  }
+
+  const openDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(true);
+  };
+
+  const closeDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(false);
+  };
+
+  const confirmDeleteWorkout = () => {
+    router.push('/workouts');
+  }
 
   useEffect(() => {
     if (workout) {
@@ -94,15 +121,17 @@ export default function WorkoutPage({ workout }) {
           />
         )}
       /> 
-      <Fab variant='extended' color='success' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none' }}>
-        Add Exercise
-      </Fab>
-      {/* <Fab variant='extended' color='primary' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none' }}>
-        Save Workout
-      </Fab>
-      <Fab variant='extended' color='error' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none' }}>
-        Delete Workout
-      </Fab> */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', position: 'fixed', bottom: 40, left: 0, right: 0 }}>
+        <Fab variant='extended' color='success' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none', marginRight: '5%' }}>
+          Add Exercise
+        </Fab>
+        <Fab variant='extended' color='primary' onClick={saveWorkout} sx={{ textTransform: 'none', marginRight: '5%' }}>
+          Save Workout
+        </Fab>
+        <Fab variant='extended' color='error' onClick={openDeleteConfirmation} sx={{ textTransform: 'none'}}>
+          Delete Workout
+        </Fab>
+      </Box>
 
       {exerciseFormOpen && <ExerciseForm 
         setExerciseName={setExerciseName}
@@ -116,6 +145,22 @@ export default function WorkoutPage({ workout }) {
         handleSaveChanges={addExercise}        
         isModalOpen={exerciseFormOpen}
         handleModalClose={() => setExerciseFormOpen(false)} />}
+
+      <Dialog
+        open={deleteConfirmationOpen}
+        onClose={closeDeleteConfirmation}
+      >
+        <DialogTitle>Delete Workout</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to delete this workout?
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'space-between', display: 'flex', paddingBottom: 2}}>
+          <Button onClick={closeDeleteConfirmation} variant='contained' sx={{textTransform: 'none', marginLeft: 3}}>Cancel</Button>
+          <Button onClick={confirmDeleteWorkout} variant='contained' color="error" sx={{textTransform: 'none', marginRight: 3}}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 }
