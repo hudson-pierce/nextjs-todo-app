@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../components/layout/Layout';
-import ExerciseCard from '../../components/workouts/ExerciseCard';
-import ExerciseForm from '../../components/workouts/ExerciseForm';
-import CustomGrid from '../../components/common/CustomGrid';
-import { WORKOUTS } from '../../data/workouts';
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
-import { EXERCISES } from '../../data/exercises';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
+import Layout from '../../components/layout/Layout';
+import ExerciseCard from '../../components/workouts/ExerciseCard';
+import ExerciseForm from '../../components/workouts/ExerciseForm';
+import CustomGrid from '../../components/common/CustomGrid';
+import { WORKOUTS } from '../../data/workouts';
+import { EXERCISES } from '../../data/exercises';
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
