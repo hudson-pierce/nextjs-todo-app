@@ -6,13 +6,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import Typography from '@mui/material/Typography';
 import Layout from '../../components/layout/Layout';
 import ExerciseCard from '../../components/workouts/ExerciseCard';
 import ExerciseForm from '../../components/workouts/ExerciseForm';
 import CustomGrid from '../../components/common/CustomGrid';
+import CustomFab from '../../components/common/CustomFab';
+
 import Header from '../../components/common/Header';
 import { WORKOUTS } from '../../data/workouts';
 import { EXERCISES } from '../../data/exercises';
@@ -128,17 +129,16 @@ export default function WorkoutPage({ workout }) {
           />
         )}
       /> 
-
-      <Box sx={{ display: 'flex', justifyContent: 'center', position: 'fixed', bottom: 40, left: 0, right: 0 }}>
-        <Fab variant='extended' color='success' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none', marginRight: '5%'}}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', bottom: 40 }}>
+        <CustomFab color='success' onClick={() => setExerciseFormOpen(true)}>
           Add Exercise
-        </Fab>
-        <Fab variant='extended' color='primary' onClick={saveWorkout} sx={{ textTransform: 'none', marginRight: '5%' }}>
+        </CustomFab>
+        <CustomFab color='primary' onClick={saveWorkout}>
           Save Workout
-        </Fab>
-        <Fab variant='extended' color='error' onClick={openDeleteConfirmation} sx={{ textTransform: 'none'}}>
+        </CustomFab>
+        <CustomFab color='error' onClick={openDeleteConfirmation}>
           Delete Workout
-        </Fab>
+        </CustomFab>
       </Box>
 
       {exerciseFormOpen && <ExerciseForm 
