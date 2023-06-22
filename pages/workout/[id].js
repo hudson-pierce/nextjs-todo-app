@@ -129,17 +129,19 @@ export default function WorkoutPage({ workout }) {
           />
         )}
       /> 
-      <Box sx={{ display: 'flex', justifyContent: 'center', bottom: 40 }}>
-        <CustomFab color='success' onClick={() => setExerciseFormOpen(true)}>
-          Add Exercise
-        </CustomFab>
-        <CustomFab color='primary' onClick={saveWorkout}>
-          Save Workout
-        </CustomFab>
-        <CustomFab color='error' onClick={openDeleteConfirmation}>
-          Delete Workout
-        </CustomFab>
-      </Box>
+      <div style={{ position: 'fixed', justifyContent: 'center', left: 0, right: 0, bottom: 40 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <CustomFab color='success' onClick={() => setExerciseFormOpen(true)}>
+            Add Exercise
+          </CustomFab>
+          <CustomFab color='primary' onClick={saveWorkout}>
+            Save Workout
+          </CustomFab>
+          <CustomFab color='error' onClick={openDeleteConfirmation}>
+            Delete Workout
+          </CustomFab>
+        </Box>
+      </div>
 
       {exerciseFormOpen && <ExerciseForm 
         setExerciseName={setExerciseName}
