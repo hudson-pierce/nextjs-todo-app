@@ -1,7 +1,12 @@
 import Layout from '../components/layout/Layout';
+import Header from '../components/common/Header';
 
 export default function Home() {
+  const title = 'Home';
+
   return (
-    <Layout title='Home'></Layout>
+    <Layout title={title}>
+      <Header title={title}/>
+    </Layout>
   );
 }

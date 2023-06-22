@@ -7,11 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import Typography from '@mui/material/Typography';
 import Layout from '../../components/layout/Layout';
 import ExerciseCard from '../../components/workouts/ExerciseCard';
 import ExerciseForm from '../../components/workouts/ExerciseForm';
 import CustomGrid from '../../components/common/CustomGrid';
+import Header from '../../components/common/Header';
 import { WORKOUTS } from '../../data/workouts';
 import { EXERCISES } from '../../data/exercises';
 
@@ -109,6 +111,12 @@ export default function WorkoutPage({ workout }) {
 
   return (
     <Layout title={workout.name}>
+      <Header title={workout.name}>
+        <Button variant="contained" style={{ padding: 15, textTransform: 'none', fontSize: 20, backgroundColor: '#388e3c'}}>
+          <PlayCircleFilledIcon sx={{paddingRight: 1, fontSize: 35}}/>
+            Start Workout
+        </Button>
+      </Header>
       <CustomGrid
         items={exercises}
         renderItem={(exercise) => (
@@ -120,8 +128,9 @@ export default function WorkoutPage({ workout }) {
           />
         )}
       /> 
+
       <Box sx={{ display: 'flex', justifyContent: 'center', position: 'fixed', bottom: 40, left: 0, right: 0 }}>
-        <Fab variant='extended' color='success' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none', marginRight: '5%' }}>
+        <Fab variant='extended' color='success' onClick={() => setExerciseFormOpen(true)} sx={{ textTransform: 'none', marginRight: '5%'}}>
           Add Exercise
         </Fab>
         <Fab variant='extended' color='primary' onClick={saveWorkout} sx={{ textTransform: 'none', marginRight: '5%' }}>
