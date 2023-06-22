@@ -88,6 +88,10 @@ export default function WorkoutPage({ workout }) {
     router.push('/workouts');
   }
 
+  const startWorkout = () => {
+    router.push(`/workout/start/${workout.id}`);
+  }
+
   useEffect(() => {
     if (workout) {
       setExercises(workout.exercises);
@@ -113,7 +117,7 @@ export default function WorkoutPage({ workout }) {
   return (
     <Layout title={workout.name}>
       <Header title={workout.name}>
-        <Button variant="contained" style={{ padding: 15, textTransform: 'none', fontSize: 20, backgroundColor: '#388e3c'}}>
+        <Button variant="contained" style={{ padding: 15, textTransform: 'none', fontSize: 20, backgroundColor: '#388e3c'}} onClick={startWorkout}>
           <PlayCircleFilledIcon sx={{paddingRight: 1, fontSize: 35}}/>
             Start Workout
         </Button>
