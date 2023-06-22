@@ -45,11 +45,6 @@ export default function WorkoutPage({ workout }) {
   const [exerciseWeight, setExerciseWeight] = useState(0);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
-  const deleteExercise = (exercise) => {
-    const newExercises = exercises.filter(e => e.name !== exercise.name);
-    setExercises(newExercises);
-  };
-
   const addExercise = () => {
     const updatedExercise = {
       id: Math.random().toString(),
@@ -61,16 +56,6 @@ export default function WorkoutPage({ workout }) {
     exercises.push(updatedExercise);
     setExerciseFormOpen(false)
   }
-
-  const updateExercise = (updatedExercise) => {
-    const updatedExercises = exercises.map(e => {
-      if (e.name === updatedExercise.name) {
-        return updatedExercise;
-      }
-      return e;
-    });
-    setExercises(updatedExercises);
-  };
 
   const saveWorkout = () => {
     router.push('/workouts');
@@ -128,8 +113,8 @@ export default function WorkoutPage({ workout }) {
           <ExerciseCard
             key={exercise.name}
             exercise={exercise}
-            deleteExercise={deleteExercise}
-            updateExercise={updateExercise}
+            exercises={exercises}
+            setExercises={setExercises}
           />
         )}
       /> 

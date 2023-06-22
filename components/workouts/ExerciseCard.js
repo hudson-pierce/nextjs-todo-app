@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { CustomCard } from '../common/CustomCard';
 import ExerciseForm from './ExerciseForm';
 
-export default function ExerciseCard({ exercise, deleteExercise, updateExercise }) {
+export default function ExerciseCard({ exercise, exercises, setExercises }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [exerciseName, setExerciseName] = useState(exercise.name);
   const [exerciseReps, setExerciseReps] = useState(exercise.reps);
@@ -21,6 +21,21 @@ export default function ExerciseCard({ exercise, deleteExercise, updateExercise 
 
   const handleModalClose = () => {
     setModalOpen(false);
+  };
+
+  const updateExercise = (updatedExercise) => {
+    const updatedExercises = exercises.map(e => {
+      if (e.name === updatedExercise.name) {
+        return updatedExercise;
+      }
+      return e;
+    });
+    setExercises(updatedExercises);
+  };
+
+  const deleteExercise = (exercise) => {
+    const newExercises = exercises.filter(e => e.name !== exercise.name);
+    setExercises(newExercises);
   };
 
   const handleSaveChanges = () => {

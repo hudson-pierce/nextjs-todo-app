@@ -24,21 +24,6 @@ export async function getServerSideProps(context) {
 export default function StartWorkoutPage({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises);
 
-  const deleteExercise = (exercise) => {
-    const newExercises = exercises.filter(e => e.name !== exercise.name);
-    setExercises(newExercises);
-  };
-
-  const updateExercise = (updatedExercise) => {
-    const updatedExercises = exercises.map(e => {
-      if (e.name === updatedExercise.name) {
-        return updatedExercise;
-      }
-      return e;
-    });
-    setExercises(updatedExercises);
-  };
-
   return (
     <Layout title={`Running ${workout.name}...`}>
       <div style={{ marginTop: 100 }}>
@@ -48,8 +33,8 @@ export default function StartWorkoutPage({ workout }) {
             <ExerciseCard
               key={exercise.name}
               exercise={exercise}
-              deleteExercise={deleteExercise}
-              updateExercise={updateExercise}
+              exercises={exercises}
+              setExercises={setExercises}
             />
           )}
         />
