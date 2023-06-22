@@ -5,12 +5,14 @@ import Menu from './Menu';
 
 export default function Layout({ children, title }) {
   return (
-    <div>
+    <div style={{ marginBottom: 150 }}>
       <Head>
         <title>{title}</title>
       </Head>
       <Menu/>
-      {children}
+      <div style={{ paddingLeft: "10%", paddingRight: "10%"}}>
+        {children}
+      </div>
     </div>
   );
 };
