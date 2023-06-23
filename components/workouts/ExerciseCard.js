@@ -4,13 +4,14 @@ import Button from '@mui/material/Button';
 import { CustomCard } from '../common/CustomCard';
 import ExerciseForm from './ExerciseForm';
 
-export default function ExerciseCard({ exercise, exercises, setExercises, runningWorkout=false }) {
+export default function ExerciseCard({ exercise, exercises, setExercises, runningWorkout = false }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [exerciseName, setExerciseName] = useState(exercise.name);
   const [exerciseReps, setExerciseReps] = useState(exercise.reps);
   const [exerciseSets, setExerciseSets] = useState(exercise.sets);
   const [exerciseWeight, setExerciseWeight] = useState(exercise.weight);
   const [refreshToggle, setRefreshToggle] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleDeleteExercise = () => {
     deleteExercise(exercise);
@@ -25,7 +26,7 @@ export default function ExerciseCard({ exercise, exercises, setExercises, runnin
   };
 
   const updateExercise = (updatedExercise) => {
-    const updatedExercises = exercises.map(e => {
+    const updatedExercises = exercises.map((e) => {
       if (e.name === updatedExercise.name) {
         return updatedExercise;
       }
@@ -35,7 +36,7 @@ export default function ExerciseCard({ exercise, exercises, setExercises, runnin
   };
 
   const deleteExercise = (exercise) => {
-    const newExercises = exercises.filter(e => e.name !== exercise.name);
+    const newExercises = exercises.filter((e) => e.name !== exercise.name);
     setExercises(newExercises);
   };
 
@@ -52,11 +53,23 @@ export default function ExerciseCard({ exercise, exercises, setExercises, runnin
     setRefreshToggle((prevToggle) => !prevToggle);
   };
 
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const markComplete = (event) => {
+    event.stopPropagation();
+    setIsDisabled((prevDisabled) => !prevDisabled);
+  };
+
+  const buttonColor = isDisabled ? 'gray' : 'primary.main';
+  const buttonColorHover = isDisabled ? 'black' : 'primary.dark';
 
   return (
     <>
-      <CustomCard key={refreshToggle} title={exerciseName} onDelete={handleDeleteExercise} onClick={handleEditClick}>
+      <CustomCard
+        key={refreshToggle}
+        title={exerciseName}
+        onDelete={handleDeleteExercise}
+        onClick={handleEditClick}
+        disable={isDisabled}
+      >
         <Typography variant="body1" color="text.secondary">
           Reps: {exerciseReps}
         </Typography>
@@ -66,11 +79,27 @@ export default function ExerciseCard({ exercise, exercises, setExercises, runnin
         <Typography variant="body1" color="text.secondary">
           Weight: {exerciseWeight} lbs
         </Typography>
-          {runningWorkout && (
-            <Button variant='outlined' size='medium' color='primary' sx={{ justifyContent: 'center', marginTop: '15px', textTransform: 'none', width: '265px'}}>
-              Mark Complete
-            </Button>
-          )}
+        {runningWorkout && (
+          <Button
+            variant="outlined"
+            size="medium"
+            sx={{
+              justifyContent: 'center',
+              marginTop: '15px',
+              textTransform: 'none',
+              width: '265px',
+              color: buttonColor,
+              borderColor: buttonColor,
+              '&:hover': {
+                color: buttonColorHover,
+                borderColor: buttonColorHover,
+              }
+            }}
+            onClick={markComplete}
+          >
+            {isDisabled ? 'Undo' : 'Mark Complete'}
+          </Button>
+        )}
       </CustomCard>
 
       <ExerciseForm
