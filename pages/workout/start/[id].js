@@ -35,6 +35,7 @@ export default function StartWorkoutPage({ workout }) {
               exercise={exercise}
               exercises={exercises}
               setExercises={setExercises}
+              runningWorkout={true}
             />
           )}
         />

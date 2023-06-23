@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 import { CustomCard } from '../common/CustomCard';
 import ExerciseForm from './ExerciseForm';
 
-export default function ExerciseCard({ exercise, exercises, setExercises }) {
+export default function ExerciseCard({ exercise, exercises, setExercises, runningWorkout=false }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [exerciseName, setExerciseName] = useState(exercise.name);
   const [exerciseReps, setExerciseReps] = useState(exercise.reps);
@@ -51,6 +52,8 @@ export default function ExerciseCard({ exercise, exercises, setExercises }) {
     setRefreshToggle((prevToggle) => !prevToggle);
   };
 
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
   return (
     <>
       <CustomCard key={refreshToggle} title={exerciseName} onDelete={handleDeleteExercise} onClick={handleEditClick}>
@@ -63,6 +66,13 @@ export default function ExerciseCard({ exercise, exercises, setExercises }) {
         <Typography variant="body1" color="text.secondary">
           Weight: {exerciseWeight} lbs
         </Typography>
+          {runningWorkout && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
+              <Button variant='outlined' size='small' color='primary' sx={{ textTransform: 'none', width: '140px'}}>Mark Complete</Button>
+              <div style={{ width: 50}}></div>
+              <Button variant='outlined' size='small' color='warning' sx={{ textTransform: 'none', width: '140px'}}>Edit</Button>
+            </div>
+          )}
       </CustomCard>
 
       <ExerciseForm
