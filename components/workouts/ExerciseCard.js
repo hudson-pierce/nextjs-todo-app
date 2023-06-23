@@ -67,11 +67,9 @@ export default function ExerciseCard({ exercise, exercises, setExercises, runnin
           Weight: {exerciseWeight} lbs
         </Typography>
           {runningWorkout && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
-              <Button variant='outlined' size='small' color='primary' sx={{ textTransform: 'none', width: '140px'}}>Mark Complete</Button>
-              <div style={{ width: 50}}></div>
-              <Button variant='outlined' size='small' color='warning' sx={{ textTransform: 'none', width: '140px'}}>Edit</Button>
-            </div>
+            <Button variant='outlined' size='medium' color='primary' sx={{ justifyContent: 'center', marginTop: '15px', textTransform: 'none', width: '265px'}}>
+              Mark Complete
+            </Button>
           )}
       </CustomCard>
 
