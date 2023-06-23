@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { Box } from '@mui/material';
+import CustomFab from '../../../components/common/CustomFab';
 import Layout from '../../../components/layout/Layout';
 import CustomGrid from '../../../components/common/CustomGrid';
 import ExerciseCard from '../../../components/workouts/ExerciseCard';
@@ -23,6 +26,7 @@ export async function getServerSideProps(context) {
 
 export default function StartWorkoutPage({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises);
+  const router = useRouter();
 
   return (
     <Layout title={`Running ${workout.name}...`}>
@@ -39,6 +43,16 @@ export default function StartWorkoutPage({ workout }) {
             />
           )}
         />
+      </div>
+      <div style={{ position: 'fixed', justifyContent: 'center', left: 0, right: 0, bottom: 40 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <CustomFab color='error' onClick={() => router.push(`/workout/${workout.id}`)}>
+            Cancel
+          </CustomFab>
+          <CustomFab color='primary' onClick={() => router.push(`/workout/${workout.id}`)}>
+            Finish
+          </CustomFab>
+        </Box>
       </div>
     </Layout>
   );
